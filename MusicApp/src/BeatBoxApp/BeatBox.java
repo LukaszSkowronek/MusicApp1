@@ -50,21 +50,10 @@ public class BeatBox {
 		checkboxList = new ArrayList<JCheckBox>();
 		Box buttonBox = new Box(BoxLayout.Y_AXIS); // vertical order
 
-		JButton start = new JButton("Start");
-		 start.addActionListener(actionEvent -> buildTrackAndStart());
-		buttonBox.add(start);
-
-		JButton stop = new JButton("Stop");
-		 stop.addActionListener(actionEvent -> sequencer.stop());
-		buttonBox.add(stop);
-
-		JButton upTempo = new JButton("Tempo Up");
-		 upTempo.addActionListener(actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 1.03)));
-		buttonBox.add(upTempo);
-
-		JButton downTempo = new JButton("Tempo Down");
-		 downTempo.addActionListener(actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 0.97)));
-		buttonBox.add(downTempo);
+		addButton(new JButton("Start"), actionEvent -> buildTrackAndStart(), buttonBox);
+		addButton(new JButton("Stop"), actionEvent -> sequencer.stop(), buttonBox);
+		addButton(new JButton("Tempo Up"), actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 1.03)), buttonBox);
+		addButton(new JButton("Tempo Down"), actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 0.97)), buttonBox);
 
 		Box nameBox = new Box(BoxLayout.Y_AXIS); // instruments
 		for (int i = 0; i < 16; i++) {
@@ -97,6 +86,11 @@ public class BeatBox {
 		theFrame.setVisible(true);
 
 	}
+
+	private void addButton(JButton button, ActionListener listener, Box buttonBox) {
+        button.addActionListener(listener);
+        buttonBox.add(button);
+    }
 
 	public void setUpMidi() {
 		try {
