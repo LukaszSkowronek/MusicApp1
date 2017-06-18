@@ -51,19 +51,19 @@ public class BeatBox {
 		Box buttonBox = new Box(BoxLayout.Y_AXIS); // vertical order
 
 		JButton start = new JButton("Start");
-		 start.addActionListener(new MyStartListener());
+		 start.addActionListener(actionEvent -> buildTrackAndStart());
 		buttonBox.add(start);
 
 		JButton stop = new JButton("Stop");
-		 stop.addActionListener(new MyStopListener());
+		 stop.addActionListener(actionEvent -> sequencer.stop());
 		buttonBox.add(stop);
 
 		JButton upTempo = new JButton("Tempo Up");
-		 upTempo.addActionListener(new MyUpTempoListener());
+		 upTempo.addActionListener(actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 1.03)));
 		buttonBox.add(upTempo);
 
 		JButton downTempo = new JButton("Tempo Down");
-		 downTempo.addActionListener(new MyDownTempoListener());
+		 downTempo.addActionListener(actionEvent -> sequencer.setTempoFactor((float) (sequencer.getTempoFactor() * 0.97)));
 		buttonBox.add(downTempo);
 
 		Box nameBox = new Box(BoxLayout.Y_AXIS); // instruments
@@ -148,39 +148,6 @@ public class BeatBox {
 			}
 	}
 
-			public class MyStartListener implements ActionListener {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					buildTrackAndStart();
-				}
-
-			}
-			public class MyStopListener implements ActionListener {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					sequencer.stop();
-				}
-
-			}
-			public class MyUpTempoListener implements ActionListener {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					float tempoFactor = sequencer.getTempoFactor();
-					sequencer.setTempoFactor((float) (tempoFactor * 1.03));
-				}
-
-			}
-			public class MyDownTempoListener implements ActionListener {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					float tempoFactor = sequencer.getTempoFactor();
-					sequencer.setTempoFactor((float) (tempoFactor * 0.97));
-				}
-			}
 			
 			public void makeTracks(int[] list) {
 				for(int i=0; i<16; i++){
